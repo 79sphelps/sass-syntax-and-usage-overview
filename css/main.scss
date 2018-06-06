@@ -1,0 +1,413 @@
+/*
+What Sass provides1 is:
+
+variables: instead of repeating #fce473 throughout your CSS file, just set $yellow: #fce473 once
+nesting: CSS rules can be nested within each other
+mixins: custom functions that can accept parameters and will prevent useless repetitions
+extensions: an easy way to inherit the same properties of another selector
+operators: adding/substracting/multiplying/dividing values, like 960px / 4 or $space * 2
+*/
+
+
+//----------------------------------
+// VARIABLES
+
+$title-font: normal 24px/1.5 'Open Sans', sans-serif;
+$cool-red: #F44336;
+$box-shadow-bottom-only: 0 5px 1px 0 rgba(0, 0, 0, 0.2);
+
+#variable_example1 {
+  font: $title-font;
+  color: $cool-red;
+}
+
+#variable_example2 {
+  color: $cool-red;
+  background: #fff;
+  width: 50%;
+  margin: 10px;
+  padding: 0px 0px 0px 10px;
+  box-shadow: $box-shadow-bottom-only;
+}
+
+//----------------------------------
+// MIXINS 
+
+@mixin square($size, $color) {
+    width: $size;
+    height: $size;
+    background-color: $color;
+}
+
+.small-blue-square {
+    @include square(50px, rgb(0,0,255));
+    margin: 20px;
+    box-shadow: $box-shadow-bottom-only;
+}
+
+.big-red-square {
+    @include square(50px, rgb(255,0,0));
+    margin: 20px;
+    box-shadow: $box-shadow-bottom-only;
+}
+
+//-----------------------
+@mixin transform-tilt() {
+    $tilt: rotate(15deg);
+
+    -webkit-transform: $tilt; /* Ch <36, Saf 5.1+, iOS, An =<4.4.4 */
+        -ms-transform: $tilt; /* IE 9 */
+            transform: $tilt; /* IE 10, Fx 16+, Op 12.1+ */
+}
+
+.frame:hover { 
+    @include transform-tilt; 
+}
+
+@import "fonts"; 
+@mixin blue_text {
+    color: #336699;
+    font-family: $helvetica;
+    font-size: 20px;
+    font-variant: small-caps;
+}
+
+.product_title {
+    @include blue_text;
+}
+
+@mixin red_text($size) {
+    color: #993266;
+    font-family: $geneva;
+    font-size: $size;
+    font-variant: small-caps;
+}
+
+.factory_title {
+    @include red_text(15px);
+}
+
+@mixin green_text($size: 20px) {
+    color: green;
+    font-family: $geneva;
+    font-size: $size;
+    font-variant: small-caps;
+}
+
+
+@mixin rounded_borders($color, $width: 5px, $rounding: 5px) {
+    -moz-border-radius: $rounding $rounding;
+    -webkit-border-radius: $rounding $rounding;
+    -khtml-border-radius: $rounding $rounding;
+    -o-border-radius: $rounding $rounding;
+    border-radius: $rounding $rounding;
+    border: $width $color solid; 
+}
+
+.my-rounded-example {
+    @include rounded_borders(#336699, 10px);
+    width: 50%
+}
+
+@import "cross_browser_opacity";
+
+.hl {
+    @include opacity(60); 
+}
+//----------------------------------
+// EXTEND 
+
+.dialog-button {
+    box-sizing: border-box;
+    color: #ffffff;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+    padding: 12px 40px;
+    cursor: pointer;
+}
+
+.confirm {
+    @extend .dialog-button;
+    background-color: #87bae1;
+    //float: left;
+    margin: 50px;
+}
+
+.cancel {
+    @extend .dialog-button;
+    background-color: #e4749e;
+    //float: right;
+    margin: 50px;
+}
+
+//----------------------------------
+// NESTING
+
+ul {
+    list-style: none;
+
+    li {
+        padding: 15px;
+        display: inline-block;
+
+        a {
+            text-decoration: none;
+            font-size: 16px;
+            color: red;
+        }
+    }
+}
+
+//----------------------------------
+// OPERATIONS
+
+$width: 800px;
+$awesome-blue: #2196F3;
+/*
+.container { 
+  width: $width;
+  background-color: $awesome-blue;
+}
+*/
+.column-half {
+  width: $width / 2;
+  @include rounded_borders(#336699, 3px);
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+  margin: 20px;
+}
+
+.column-fifth {
+  width: $width / 5;
+  @include rounded_borders(#336699, 3px);
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+  margin: 20px;
+}
+
+//----------------------------------
+// FUNCTIONS
+
+a {
+  padding: 10px 15px;
+  color: white;
+  background-color: $awesome-blue;
+}
+
+a:hover {
+  color: white;
+  background-color: darken($awesome-blue,10%);
+}
+
+//----------------------------------
+// ADD, SUBTRACT, MULTIPLY, OR DIVIDE USING STANDARD OPERATIONS
+$width: 200px;
+$double_width: $width * 2;
+$half_width: $width / 2;
+$width_plus_2: $width + 2;
+$width_minus_2: $width - 2;
+
+.tmp {
+    @include rounded_borders(#336699, 1px);
+    margin: 20px;
+    padding: 0 0 0 5px;
+}
+
+#double_width {
+    @extend .tmp;
+    width: $double_width;
+    
+}
+
+#half_width {
+    width: $half_width;
+    @extend .tmp;
+}
+
+#width_plus_2 {
+    width: $width_plus_2;
+    @extend .tmp;
+}
+
+#width_minus_2 {
+    width: $width_minus_2;
+    @extend .tmp;
+}
+
+//----------------------------------
+// USE CALCULATIONS INLINE
+//$width: 500px;
+$sidebar_percent: 0.2;
+#page {
+    width: $width;
+    @extend .tmp;
+
+    #sidebar {
+        width: $width * $sidebar_percent; 
+    }
+    #content {
+        width: $width * (1 - $sidebar_percent); 
+    } 
+}
+
+//----------------------------------
+// LIGHTEN/DARKEN COLORS
+#lighten_color_example {
+    width: 30%;
+    color: lighten(red, 20%); 
+    @extend .tmp;
+}
+
+//----------------------------------
+// SATURATE/DESATURATE COLORS
+$main_color: #336699;
+#saturate_color_example {
+    color: saturate($main_color, 30%);
+    @extend .tmp;
+}
+
+//----------------------------------
+// CHANGE THE HUE
+#hue_change_example {
+    color: adjust-hue($main_color, 180);
+    // color: adjust-hue(desaturate($main_color, 10%), 90);
+    @extend .tmp;
+}
+
+//----------------------------------
+// DESATURATE BY 100 PERCENT WITH GRAYSCALE
+// grayscale(#336699);
+// desaturate(#336699, 100%);
+
+//----------------------------------
+// MIX COLORS
+#color1 {
+    color: white;
+    background-color: #336699;
+    @extend .tmp;
+}
+
+#color2 {
+    color: white;
+    background-color: #993266;
+    @extend .tmp;
+}
+
+#mix_color_example {
+    color: white;
+    background-color: mix(#336699, #993266);
+    @extend .tmp;
+}
+
+//----------------------------------
+// IMPORTING
+//@import "colors";   // we don't need to include the underscore extension
+
+#page {
+    color: $main_color;
+}
+
+@import "fonts";
+
+#font_import_example {
+    font-family: $palatino;
+}
+
+//----------------------------------
+// INTERPOLATION
+
+
+@mixin car_make($car_make, $car_color) {
+    // Set the $car_make with "_make" at the end as a class
+    .car.#{$car_make}_make {
+        color: $car_color;
+        width: 100px;
+        .image {
+            background: url("../images/#{$car_make}/#{$car_color}.jpg");
+        }
+    }
+}
+
+@include car_make("volvo", "black");
+@include car_make("corvette", "red" );
+@include car_make("bmw", "white");    
+
+
+//----------------------------------
+// COPY SAME STYLE OVER A SET
+
+@each $member in volvo, bmw, corvette {
+    .#{$member}_picture {
+        background-color: grey;
+        height: auto;
+        width: auto;
+        max-width: 90%;
+        background-image: url("../images/#{$member}.jpg"); 
+    } 
+}
+
+/*
+This compiles to:
+.thom_picture {
+background-image: url("/image/thom.jpg"); }
+.jonny_picture {
+background-image: url("/image/jonny.jpg"); }
+.colin_picture {
+background-image: url("/image/colin.jpg"); }
+.phil_picture {
+background-image: url("/image/phil.jpg"); }
+*/
+
+//----------------------------------
+// CONDITIONAL IF/ELSE
+@mixin country_color($country) {
+    @if $country == france {
+        color: blue;
+    }
+    @else if $country == spain {
+        color: yellow;
+    }
+    @else if $country == italy {
+        color: green;
+    }
+    @else {
+        color: red;
+    }
+}
+
+.england {
+    @include country_color(england);
+}
+
+.france {
+    @include country_color(france);
+}
+
+//----------------------------------
+// CHANGING LOOKS WITH NESTED MEDIA
+
+// nested style
+#main_display_example1 {
+    color: #336699;
+    font-size: 15px;
+    @media print {
+        font-size: 10px; 
+    }   
+}
+
+// Ex. Portrait: 
+// The font should be larger ONLY when the screen is at a max of 320px wide.
+// make sites portrait-specific
+.main_display_example2 {
+    color: #336699;
+    font-size: 15px;
+    @media screen and (max-width: 320px) {
+        font-size: 35px; 
+    } 
+}
+
+// ...or, landscape-specific
+.main_display_example3 {
+    color: #336699;
+    font-size: 15px;
+    @media screen and (min-width: 321px) and (max-width: 480px) {
+        font-size: 25px; 
+    } 
+}

@@ -1,0 +1,273 @@
+/*
+What Sass provides1 is:
+
+variables: instead of repeating #fce473 throughout your CSS file, just set $yellow: #fce473 once
+nesting: CSS rules can be nested within each other
+mixins: custom functions that can accept parameters and will prevent useless repetitions
+extensions: an easy way to inherit the same properties of another selector
+operators: adding/substracting/multiplying/dividing values, like 960px / 4 or $space * 2
+*/
+#variable_example1 {
+  font: normal 24px/1.5 "Open Sans", sans-serif;
+  color: #F44336; }
+
+#variable_example2 {
+  color: #F44336;
+  background: #fff;
+  width: 50%;
+  margin: 10px;
+  padding: 0px 0px 0px 10px;
+  box-shadow: 0 5px 1px 0 rgba(0, 0, 0, 0.2); }
+
+.small-blue-square {
+  width: 50px;
+  height: 50px;
+  background-color: blue;
+  margin: 20px;
+  box-shadow: 0 5px 1px 0 rgba(0, 0, 0, 0.2); }
+
+.big-red-square {
+  width: 50px;
+  height: 50px;
+  background-color: red;
+  margin: 20px;
+  box-shadow: 0 5px 1px 0 rgba(0, 0, 0, 0.2); }
+
+.frame:hover {
+  -webkit-transform: rotate(15deg);
+  /* Ch <36, Saf 5.1+, iOS, An =<4.4.4 */
+  -ms-transform: rotate(15deg);
+  /* IE 9 */
+  transform: rotate(15deg);
+  /* IE 10, Fx 16+, Op 12.1+ */ }
+
+.product_title {
+  color: #336699;
+  font-family: "helvetica neue", arial, helvetica, freesans, "liberation sans", "numbus sans l", sans-serif;
+  font-size: 20px;
+  font-variant: small-caps; }
+
+.factory_title {
+  color: #993266;
+  font-family: geneva, tahoma, "dejavu sans condensed", sans-serif;
+  font-size: 15px;
+  font-variant: small-caps; }
+
+.my-rounded-example {
+  -moz-border-radius: 5px 5px;
+  -webkit-border-radius: 5px 5px;
+  -khtml-border-radius: 5px 5px;
+  -o-border-radius: 5px 5px;
+  border-radius: 5px 5px;
+  border: 10px #336699 solid;
+  width: 50%; }
+
+.hl {
+  filter: alpha(opacity=60);
+  opacity: 0.6; }
+
+.dialog-button, .confirm, .cancel {
+  box-sizing: border-box;
+  color: #ffffff;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+  padding: 12px 40px;
+  cursor: pointer; }
+
+.confirm {
+  background-color: #87bae1;
+  margin: 50px; }
+
+.cancel {
+  background-color: #e4749e;
+  margin: 50px; }
+
+ul {
+  list-style: none; }
+
+ul li {
+  padding: 15px;
+  display: inline-block; }
+
+ul li a {
+  text-decoration: none;
+  font-size: 16px;
+  color: red; }
+
+/*
+.container { 
+  width: $width;
+  background-color: $awesome-blue;
+}
+*/
+.column-half {
+  width: 400px;
+  -moz-border-radius: 5px 5px;
+  -webkit-border-radius: 5px 5px;
+  -khtml-border-radius: 5px 5px;
+  -o-border-radius: 5px 5px;
+  border-radius: 5px 5px;
+  border: 3px #336699 solid;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+  margin: 20px; }
+
+.column-fifth {
+  width: 160px;
+  -moz-border-radius: 5px 5px;
+  -webkit-border-radius: 5px 5px;
+  -khtml-border-radius: 5px 5px;
+  -o-border-radius: 5px 5px;
+  border-radius: 5px 5px;
+  border: 3px #336699 solid;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+  margin: 20px; }
+
+a {
+  padding: 10px 15px;
+  color: white;
+  background-color: #2196F3; }
+
+a:hover {
+  color: white;
+  background-color: #0c7cd5; }
+
+.tmp, #double_width, #half_width, #width_plus_2, #width_minus_2, #page, #lighten_color_example, #saturate_color_example, #hue_change_example, #color1, #color2, #mix_color_example {
+  -moz-border-radius: 5px 5px;
+  -webkit-border-radius: 5px 5px;
+  -khtml-border-radius: 5px 5px;
+  -o-border-radius: 5px 5px;
+  border-radius: 5px 5px;
+  border: 1px #336699 solid;
+  margin: 20px;
+  padding: 0 0 0 5px; }
+
+#double_width {
+  width: 400px; }
+
+#half_width {
+  width: 100px; }
+
+#width_plus_2 {
+  width: 202px; }
+
+#width_minus_2 {
+  width: 198px; }
+
+#page {
+  width: 200px; }
+
+#page #sidebar {
+  width: 40px; }
+
+#page #content {
+  width: 160px; }
+
+#lighten_color_example {
+  width: 30%;
+  color: #ff6666; }
+
+#saturate_color_example {
+  color: #1466b8; }
+
+#hue_change_example {
+  color: #996633; }
+
+#color1 {
+  color: white;
+  background-color: #336699; }
+
+#color2 {
+  color: white;
+  background-color: #993266; }
+
+#mix_color_example {
+  color: white;
+  background-color: #664c80; }
+
+#page {
+  color: #336699; }
+
+#font_import_example {
+  font-family: "palatino linotype", palatino, palladio, "urw palladio l", "book antiqua", "liberation serif", times, serif; }
+
+.car.volvo_make {
+  color: "black";
+  width: 100px; }
+
+.car.volvo_make .image {
+  background: url("../images/volvo/black.jpg"); }
+
+.car.corvette_make {
+  color: "red";
+  width: 100px; }
+
+.car.corvette_make .image {
+  background: url("../images/corvette/red.jpg"); }
+
+.car.bmw_make {
+  color: "white";
+  width: 100px; }
+
+.car.bmw_make .image {
+  background: url("../images/bmw/white.jpg"); }
+
+.volvo_picture {
+  background-color: grey;
+  height: auto;
+  width: auto;
+  max-width: 90%;
+  background-image: url("../images/volvo.jpg"); }
+
+.bmw_picture {
+  background-color: grey;
+  height: auto;
+  width: auto;
+  max-width: 90%;
+  background-image: url("../images/bmw.jpg"); }
+
+.corvette_picture {
+  background-color: grey;
+  height: auto;
+  width: auto;
+  max-width: 90%;
+  background-image: url("../images/corvette.jpg"); }
+
+/*
+This compiles to:
+.thom_picture {
+background-image: url("/image/thom.jpg"); }
+.jonny_picture {
+background-image: url("/image/jonny.jpg"); }
+.colin_picture {
+background-image: url("/image/colin.jpg"); }
+.phil_picture {
+background-image: url("/image/phil.jpg"); }
+*/
+.england {
+  color: red; }
+
+.france {
+  color: blue; }
+
+#main_display_example1 {
+  color: #336699;
+  font-size: 15px; }
+
+@media print {
+  #main_display_example1 {
+    font-size: 10px; } }
+
+.main_display_example2 {
+  color: #336699;
+  font-size: 15px; }
+
+@media screen and (max-width: 320px) {
+  .main_display_example2 {
+    font-size: 35px; } }
+
+.main_display_example3 {
+  color: #336699;
+  font-size: 15px; }
+
+@media screen and (min-width: 321px) and (max-width: 480px) {
+  .main_display_example3 {
+    font-size: 25px; } }
